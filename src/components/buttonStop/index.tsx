@@ -18,12 +18,9 @@ const CustomButton = styled(Button)({
   },
 });
 
-type StopButtonProps = {
-  onClick?: () => void;
-};
 
 
-const StopButton = ({ onClick }: StopButtonProps) => {
+const StopButton = () => {
   return <CustomButton>Parar</CustomButton>;
 };
 
