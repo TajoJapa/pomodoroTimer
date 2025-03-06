@@ -1,7 +1,5 @@
-import { green } from '@mui/material/colors'
 import './App.css'
 import PomodoroTimer from './components/cardTimer'
-import SpeedDialHome from './components/speedDial'
 import YouTubePlayer from './components/spotifyPlayer'
 
 function App() {

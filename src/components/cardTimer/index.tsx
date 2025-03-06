@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Typography, Paper, Slider, styled } from "@mui/material";
+import { Button,Slider, styled } from "@mui/material";
 
 export default function PomodoroTimer() {
   const [time, setTime] = useState<number>(25 * 60);
