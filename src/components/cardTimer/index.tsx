@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button,Slider, styled } from "@mui/material";
+import { Button, Slider, styled } from "@mui/material";
 
 export default function PomodoroTimer() {
   const [time, setTime] = useState<number>(25 * 60);
@@ -12,39 +12,39 @@ export default function PomodoroTimer() {
       timer = setInterval(() => {
         setTime((prev) => prev - 1);
       }, 1000);
-      
     } else if (time === 0) {
       setIsRunning(false);
-      endAudio.play()
-      
+      const endAudio = new Audio("/sounds/end.mp3");
+      endAudio.play();
     }
     return () => clearInterval(timer);
   }, [isRunning, time]);
-  
+
   const formatTime = (seconds: number): string => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
 
     return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
   };
-  
-  const startAudio = new Audio('/public/sounds/start.mp3')
-  const stopAudio = new Audio('./public/sounds/stop.mp3')
-  const endAudio = new Audio('./public/sounds/end.mp3')
-  
+
   const handleStartPause = (): void => {
     setIsRunning(!isRunning);
-    startAudio.play()
-
+    const startAudio = new Audio("/sounds/start.mp3");
+    startAudio.play();
   };
-  
+
   const handleReset = (): void => {
     setIsRunning(false);
     setTime(sessionLength * 60);
-    stopAudio.play()
+    const stopAudio = new Audio("/sounds/stop.mp3");
+
+    stopAudio.play();
   };
 
-  const handleSessionChange = (_event: Event, newValue: number | number[]): void => {
+  const handleSessionChange = (
+    _event: Event,
+    newValue: number | number[]
+  ): void => {
     if (typeof newValue === "number") {
       setSessionLength(newValue);
       setTime(newValue * 60);
@@ -69,24 +69,31 @@ export default function PomodoroTimer() {
   });
 
   return (
-        <div>
-            <h1>
-      {formatTime(time)}
-            </h1>
-      <CustomButton variant="contained" color="primary" onClick={handleStartPause} style={{ marginRight: 10 }} >
-           {isRunning ? "Pause" : "Start"}</CustomButton>     
-     
+    <div>
+      <h1>{formatTime(time)}</h1>
+      <CustomButton
+        variant="contained"
+        color="primary"
+        onClick={handleStartPause}
+        style={{ marginRight: 10 }}
+      >
+        {isRunning ? "Pause" : "Start"}
+      </CustomButton>
+
       <CustomButton variant="contained" color="secondary" onClick={handleReset}>
         Reset
       </CustomButton>
-      <h4  style={{ marginTop: 20,color:'#babbba'}}>Defina o tempo da sessão: {sessionLength} min</h4>
-      <Slider style={{color:'#babbba'}}
+      <h4 style={{ marginTop: 20, color: "#babbba" }}>
+        Defina o tempo da sessão: {sessionLength} min
+      </h4>
+      <Slider
+        style={{ color: "#babbba" }}
         value={sessionLength}
         min={1}
         max={60}
         step={1}
         onChange={handleSessionChange}
-        />
-        </div>
+      />
+    </div>
   );
 }
